@@ -12,9 +12,9 @@ var api = require('./routes/api');
 
 var app = express();
 
-// var env = process.env.NODE_ENV || 'development';
-// app.locals.ENV = env;
-// app.locals.ENV_DEVELOPMENT = env == 'development';
+var env = process.env.NODE_ENV || 'development';
+app.locals.ENV = env;
+app.locals.ENV_DEVELOPMENT = env == 'development';
 
 // view engine setup
 
