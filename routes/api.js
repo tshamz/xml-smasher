@@ -36,7 +36,7 @@ router.get('/', (req, res) => {
         }]
       }
     }, {});
-    res.type('text/xml').status(200).send(response.end({pretty: true}));
+    res.type('.xml').status(200).send(response.end({pretty: true}));
   });
 });
 
