@@ -24,6 +24,10 @@ router.get('/', (req, res) => {
     .then(parsedXML => parsedXML.rss.channel[0].item);
 
   Promise.all([rebeccaXMLItems, uriXMLItems]).then(xmlData => {
+    const mergedXmlData = [...xmlData[0], ...xmlData[1]].map(item => {
+      item['g:coo'] = 'US';
+      return item;
+    });
     const response = builder.create({
       'rss': {
         '@xmlns:g': 'http://base.google.com/ns/1.0',
@@ -32,7 +36,7 @@ router.get('/', (req, res) => {
           'title': 'Rebecca Minkoff + Uri Minkoff',
           'link': '',
           'description': '',
-          item: [...xmlData[0], ...xmlData[1]]
+          item: mergedXmlData
         }]
       }
     }, {});
