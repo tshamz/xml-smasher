@@ -25,6 +25,10 @@ router.get('/', (req, res) => {
 
   Promise.all([rebeccaXMLItems, uriXMLItems]).then(xmlData => {
     const mergedXmlData = [...xmlData[0], ...xmlData[1]].map(item => {
+      const sku = item['g:id'];
+      const variantId = item['g:mpn'];
+      item['g:id'] = variantId;
+      item['g:mpn'] = sku;
       item['g:coo'] = 'US';
       return item;
     });
