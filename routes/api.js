@@ -2,7 +2,10 @@ const fetch    = require('node-fetch');
 const xml      = require('xml2js');
 const builder  = require('xmlbuilder');
 const express  = require('express');
+const Entities = require('html-entities').AllHtmlEntities;
 const router   = express.Router();
+
+const entities = new Entities();
 
 const googleProductCategories = require('./google_product_categories.json');
 
@@ -30,7 +33,7 @@ router.get('/', (req, res) => {
       const sku = item['g:id'];
       const variantId = item['g:mpn'];
       const googleProductCategoryId = item['g:google_product_category'];
-      item['g:google_product_category'] = googleProductCategories[googleProductCategoryId];
+      item['g:google_product_category'] = entities.encode(googleProductCategories[googleProductCategoryId]);
       item['g:id'] = variantId;
       item['g:mpn'] = sku;
       item['g:coo'] = 'US';
