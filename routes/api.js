@@ -4,6 +4,8 @@ const builder  = require('xmlbuilder');
 const express  = require('express');
 const router   = express.Router();
 
+const googleProductCategories = require('./google_product_categories.json');
+
 const parseXML = xmlResponse => {
   return new Promise((resolve, reject) => {
     xml.parseString(xmlResponse, (err, result) => {
@@ -27,6 +29,8 @@ router.get('/', (req, res) => {
     const mergedXmlData = [...xmlData[0], ...xmlData[1]].map(item => {
       const sku = item['g:id'];
       const variantId = item['g:mpn'];
+      const googleProductCategoryId = item['g:google_product_category'];
+      item['g:google_product_category'] = googleProductCategories[googleProductCategoryId];
       item['g:id'] = variantId;
       item['g:mpn'] = sku;
       item['g:coo'] = 'US';
