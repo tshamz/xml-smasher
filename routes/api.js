@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
     .then(parseXML)
     .then(parsedXML => parsedXML.rss.channel[0].item);
 
-  const uriXMLItems = fetch('https://my.datafeedwatch.com/static/files/12756/f67fd96daa5b06167f70a66f086dd6b796cc7f1b.xml')
+  const uriXMLItems = fetch('https://feeds.datafeedwatch.com/12756/61b53ea50487552ef1d1d1e7c1472f5d4acf77ca.xml')
     .then(response => response.text())
     .then(parseXML)
     .then(parsedXML => parsedXML.rss.channel[0].item);
