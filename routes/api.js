@@ -33,10 +33,19 @@ router.get('/', (req, res) => {
       const sku = item['g:id'];
       const variantId = item['g:mpn'];
       const googleProductCategoryId = item['g:google_product_category'];
+      const price = parseFloat(item['g:price'].split(' ')[0]);
+      const salePrice = parseFloat(item['g:sale_price'].split(' ')[0]);
+
       item['g:google_product_category'] = entities.encode(googleProductCategories[googleProductCategoryId]);
       item['g:id'] = variantId;
       item['g:mpn'] = sku;
       item['g:coo'] = 'US';
+
+      if (price === 0 || salePrice === 0) {
+        item['g:price'] = '0.01 USD';
+        item['g:sale_price'] = '0.01 USD';
+      }
+
       return item;
     });
     const response = builder.create({
