@@ -37,7 +37,7 @@ router.get('/', (req, res) => {
       const salePrice = parseFloat(item['g:sale_price'][0].split(' ')[0]);
 
       // item['g:google_product_category'] = googleProductCategoryId;
-      item['g:google_product_category'] = entities.encode(googleProductCategoryId);
+      item['g:google_product_category'] = entities.encode(googleProductCategories[googleProductCategoryId]);
 
       item['g:id'] = variantId;
       item['g:mpn'] = sku;
