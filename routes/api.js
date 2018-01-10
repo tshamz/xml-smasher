@@ -38,7 +38,8 @@ router.get('/', (req, res) => {
 
       // item['g:google_product_category'] = googleProductCategoryId;
 
-      item['g:google_product_category'] = entities.encode(googleProductCategories[googleProductCategoryId]);
+      // item['g:google_product_category'] = entities.encode(googleProductCategories[googleProductCategoryId]);
+      item['g:google_product_category'] = googleProductCategories[googleProductCategoryId];
 
       item['g:id'] = variantId;
       item['g:mpn'] = sku;
