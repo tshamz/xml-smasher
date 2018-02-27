@@ -33,21 +33,25 @@ router.get('/', (req, res) => {
       const sku = item['g:id'];
       const variantId = item['g:mpn'];
       const googleProductCategoryId = item['g:google_product_category'];
-      const price = parseFloat(item['g:price'][0].split(' ')[0]);
-      const salePrice = parseFloat(item['g:sale_price'][0].split(' ')[0]);
+      const price = (item['g:price']) ? parseFloat(item['g:price'][0].split(' ')[0]) : null;
+      const salePrice = (item['g:sale_price']) ? parseFloat(item['g:sale_price'][0].split(' ')[0]) : null;
 
       item['g:google_product_category'] = googleProductCategories[googleProductCategoryId];
       item['g:id'] = variantId;
       item['g:mpn'] = sku;
-      item['g:coo'] = 'US';
+      item['g:coo'] = (item['g:custom_label_0'] && item['g:custom_label_0'][0]) ? item['g:custom_label_0'][0] : 'US';
 
       if (price === 0 || salePrice === 0) {
         item['g:price'] = '0.01 USD';
         item['g:sale_price'] = '0.01 USD';
       }
 
-      if (!item['g:product_type'][0]) {
-        delete item['g:product_type']
+      if (item['g:product_type'] && !item['g:product_type'][0]) {
+        delete item['g:product_type'];
+      }
+
+      if (item['g:custom_label_0']) {
+        delete item['g:custom_label_0'];
       }
 
       return item;
